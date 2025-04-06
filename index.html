@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Python Number Logic</title>
-  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <meta charset="UTF-8">
+    <title>Python Number Logic</title>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
 </head>
 <body>
-  <h1>Enter a Number</h1>
-  <input id="input-x" type="number" />
-  <button py-click="run_python">Submit</button>
-  <p id="output"></p>
+    <h1>Enter a Number</h1>
+    <input id="input-x" type="number" />
+    <button id="run-button">Submit</button>
+    <p id="output">Result will appear here.</p>
 
-  <py-script>
+    <py-script>
+from js import document
+
 def process_number(x):
     if x > 10:
         result = x * 2
@@ -22,13 +24,15 @@ def process_number(x):
         result = x / 2
     return result
 
-def run_python(event=None):
-    from pyscript import Element
-    value = Element("input-x").element.value
-    if value:
-        x = float(value)
+def run_python(event):
+    input_value = document.getElementById("input-x").value
+    if input_value:
+        x = float(input_value)
         result = process_number(x)
-        Element("output").element.innerText = f"Result: {result}"
-  </py-script>
+        document.getElementById("output").innerText = f"Result: {result}"
+
+# Attach the Python function to the JS click event
+document.getElementById("run-button").addEventListener("click", run_python)
+    </py-script>
 </body>
 </html>
