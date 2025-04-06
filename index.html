@@ -9,12 +9,10 @@
 <body>
   <h1>Enter a Number</h1>
   <input id="input-x" type="number" />
-  <button id="run-button">Submit</button>
+  <button py-click="run_python">Submit</button>
   <p id="output"></p>
 
   <py-script>
-from pyscript import Element
-
 def process_number(x):
     if x > 10:
         result = x * 2
@@ -25,15 +23,12 @@ def process_number(x):
     return result
 
 def run_python(event=None):
-    input_value = Element("input-x").element.value
-    if input_value:
-        x = float(input_value)
+    from pyscript import Element
+    value = Element("input-x").element.value
+    if value:
+        x = float(value)
         result = process_number(x)
         Element("output").element.innerText = f"Result: {result}"
-
-# Bind the function to the button
-from js import document
-document.getElementById("run-button").addEventListener("click", run_python)
   </py-script>
 </body>
 </html>
